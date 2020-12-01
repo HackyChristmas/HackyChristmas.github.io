@@ -1,2 +1,2 @@
-# HackyChristmas.github.io
-GitHub pages for HackyChristmas
+# HackyChristmas
+An advent calendar for nerdy kids of all ages.
