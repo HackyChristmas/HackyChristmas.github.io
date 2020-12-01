@@ -21,3 +21,11 @@ translate([0,0,120]) sphere(r = 25);
 translate([0,0,135]) cylinder(r = 30, h =  2);
 translate([0,0,135]) cylinder(r1 = 20, r2 = 25, h =  40);
 ```
+
+Now press F5 (or the Preview button in the button bar) and a snowman should appear on the model view on the right hand of the screen.
+
+### What's that all about, then?
+
+The program above draws four shapes; two spheres and two cylinders. For each shape, we're giving OpenSCAD two sets of information:
+ - Where to put the shape (this is what `translate...` does)
+ - What radius (and height, in the case of the cylinders) to draw the shape with
