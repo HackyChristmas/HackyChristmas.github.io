@@ -90,6 +90,19 @@ snowman(jauntiness = 10);
 
 And press F5 / Preview again. Do you have a snowman with a jaunty hat? Yes? Excellent.
 
+Before we move on, I'd like to point out something. Perviously, we had one `translate` before each shape. Now, we have a `translate` and a `rotate` that apply to several. We've grouped the shapes together by putting a block the `{` and `}` around them, after the `rotate`. We could have done this differently:
+
+``` OpenSCAD
+  translate([0,0,135]) {
+    rotate([0, jauntiness, 0]) {
+      cylinder(r = 30, h =  2);
+      cylinder(r1 = 20, r2 = 25, h = 40);
+    }
+  }
+```
+
+The result of this code is exactly the same as the original... but this version makes it clearer that the `rotate` is 'inside' the `translate`. Since the `translate` and the `rotate` apply to the same grouping of shapes, I didn't think it necessary.
+
 ### Making a Crowd
 
 Two snowmen is nice but more would be better...
