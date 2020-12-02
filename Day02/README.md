@@ -17,7 +17,7 @@ We're going to make two changes to the code:
 
 ### Making a snowman module
 
-This part is fairly straightforward. You can make a module by just doing something like:
+This part is fairly straightforward. You can make a module by just doing something like this (this is an example; the actual code you want is below...):
 ``` OpenSCAD
 module my_new_module() {
   // the shapes for your module
