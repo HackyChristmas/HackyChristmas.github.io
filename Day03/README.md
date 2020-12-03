@@ -8,7 +8,7 @@ Today we're going to go over translation, rotation and grouping shapes again. We
 
 ## Making a nose
 
-Snowmen can have all sorts of noses. I usually use a carrot.
+First, we need to pick our nose. Snowmen can have all sorts of noses. I usually use a carrot so I'll go with that here.
 
 We can approximate a carrot by making a cone. In OpenSCAD, a cone is created by making a `cylinder` that has a radius greater than zero at the bottom and a radius of zero at the top. Like this:
 
