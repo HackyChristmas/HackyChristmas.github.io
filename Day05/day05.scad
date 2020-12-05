@@ -27,9 +27,10 @@ module footprints() {
     }
 }
 
-sole();
+// sole();
 
-// footprints();
+footprints();
+
 //difference() {
 //    cube([20, 20, 5]);
 //    cylinder(r = 20, h = 5);
