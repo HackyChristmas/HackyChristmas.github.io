@@ -5,3 +5,4 @@ An advent calendar for nerdy kids of all ages.
 3. [Day 3](Day03/README.md)
 4. [Day 4](Day04/README.md)
 5. [Day 5](Day05/README.md)
+6. [Day 6](Day06/README.md)
