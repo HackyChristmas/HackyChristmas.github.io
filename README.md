@@ -7,3 +7,4 @@ An advent calendar for nerdy kids of all ages.
 5. [Day 5](Day05/README.md)
 6. [Day 6](Day06/README.md)
 7. [Day 7](Day07/README.md)
+8. [Day 8](Day08/README.md)
