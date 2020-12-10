@@ -1,0 +1,1 @@
+linear_extrude(height = 2) projection() import("horse.STL");
