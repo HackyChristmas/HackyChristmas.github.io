@@ -10,3 +10,5 @@ An advent calendar for nerdy kids of all ages.
 8. [Day 8](Day08/README.md)
 9. [Day 9](Day09/README.md)
 10. [Day 10](Day10/README.md)
+11. [Day 11](Day11/README.md)
+12. [Day 12](Day12/README.md)
