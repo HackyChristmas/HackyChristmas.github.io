@@ -1,0 +1,13 @@
+<html>
+    <head><title>Santa Says</title</head>
+    <body>
+        Santa says that you are buying for <b id = "giftee">someone...</b>
+    </body>
+    <script>
+        var hash = document.location.hash;
+        var encoded_name = hash.substr(1);
+        var name = atob(encoded_name);
+        var textNode = document.createTextNode(name);
+        document.getElementById("giftee").appendChild(textNode);
+    </script>
+</html>
