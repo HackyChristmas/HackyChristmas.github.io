@@ -1,0 +1,201 @@
+<html>
+    <head><title>Testing three</title></head>
+    <body>
+
+    </body>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r123/three.min.js"></script>
+    <script src = "STLLoader.js"></script>
+    <script>
+
+let container;
+
+let camera, cameraTarget, scene, renderer;
+
+init();
+animate();
+
+function init() {
+
+    container = document.createElement( 'div' );
+    document.body.appendChild( container );
+
+    camera = new THREE.PerspectiveCamera( 35, window.innerWidth / window.innerHeight, 1, 15 );
+    camera.position.set( 3, 0.15, 3 );
+
+    cameraTarget = new THREE.Vector3( 0, - 0.25, 0 );
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0x72645b );
+    scene.fog = new THREE.Fog( 0x72645b, 2, 15 );
+
+    // Ground
+
+    const plane = new THREE.Mesh(
+        new THREE.PlaneBufferGeometry( 40, 40 ),
+        new THREE.MeshPhongMaterial( { color: 0x999999, specular: 0x101010 } )
+    );
+    plane.rotation.x = - Math.PI / 2;
+    plane.position.y = - 0.5;
+    scene.add( plane );
+
+    plane.receiveShadow = true;
+    const loader = new THREE.STLLoader();
+
+/*
+    // ASCII file
+
+    loader.load( './models/stl/ascii/slotted_disk.stl', function ( geometry ) {
+
+        const material = new THREE.MeshPhongMaterial( { color: 0xff5533, specular: 0x111111, shininess: 200 } );
+        const mesh = new THREE.Mesh( geometry, material );
+
+        mesh.position.set( 0, - 0.25, 0.6 );
+        mesh.rotation.set( 0, - Math.PI / 2, 0 );
+        mesh.scale.set( 0.5, 0.5, 0.5 );
+
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        scene.add( mesh );
+
+    } );*/
+
+
+    // Binary files
+
+    const material = new THREE.MeshPhongMaterial( { color: 0xAAAAAA, specular: 0x111111, shininess: 200 } );
+
+    let cube_uri = 'data:model/stl;base64,c29saWQgT3BlblNDQURfTW9kZWwKICBmYWNldCBub3JtYWwgLTAgMCAxCiAgICBvdXRlciBsb29wCiAgICAgIHZlcnRleCAwIDUgNQogICAgICB2ZXJ0ZXggNSAwIDUKICAgICAgdmVydGV4IDUgNSA1CiAgICBlbmRsb29wCiAgZW5kZmFjZXQKICBmYWNldCBub3JtYWwgMCAwIDEKICAgIG91dGVyIGxvb3AKICAgICAgdmVydGV4IDUgMCA1CiAgICAgIHZlcnRleCAwIDUgNQogICAgICB2ZXJ0ZXggMCAwIDUKICAgIGVuZGxvb3AKICBlbmRmYWNldAogIGZhY2V0IG5vcm1hbCAwIDAgLTEKICAgIG91dGVyIGxvb3AKICAgICAgdmVydGV4IDAgMCAwCiAgICAgIHZlcnRleCA1IDUgMAogICAgICB2ZXJ0ZXggNSAwIDAKICAgIGVuZGxvb3AKICBlbmRmYWNldAogIGZhY2V0IG5vcm1hbCAtMCAwIC0xCiAgICBvdXRlciBsb29wCiAgICAgIHZlcnRleCA1IDUgMAogICAgICB2ZXJ0ZXggMCAwIDAKICAgICAgdmVydGV4IDAgNSAwCiAgICBlbmRsb29wCiAgZW5kZmFjZXQKICBmYWNldCBub3JtYWwgMCAtMSAwCiAgICBvdXRlciBsb29wCiAgICAgIHZlcnRleCAwIDAgMAogICAgICB2ZXJ0ZXggNSAwIDUKICAgICAgdmVydGV4IDAgMCA1CiAgICBlbmRsb29wCiAgZW5kZmFjZXQKICBmYWNldCBub3JtYWwgMCAtMSAtMAogICAgb3V0ZXIgbG9vcAogICAgICB2ZXJ0ZXggNSAwIDUKICAgICAgdmVydGV4IDAgMCAwCiAgICAgIHZlcnRleCA1IDAgMAogICAgZW5kbG9vcAogIGVuZGZhY2V0CiAgZmFjZXQgbm9ybWFsIDEgLTAgMAogICAgb3V0ZXIgbG9vcAogICAgICB2ZXJ0ZXggNSAwIDUKICAgICAgdmVydGV4IDUgNSAwCiAgICAgIHZlcnRleCA1IDUgNQogICAgZW5kbG9vcAogIGVuZGZhY2V0CiAgZmFjZXQgbm9ybWFsIDEgMCAwCiAgICBvdXRlciBsb29wCiAgICAgIHZlcnRleCA1IDUgMAogICAgICB2ZXJ0ZXggNSAwIDUKICAgICAgdmVydGV4IDUgMCAwCiAgICBlbmRsb29wCiAgZW5kZmFjZXQKICBmYWNldCBub3JtYWwgMCAxIC0wCiAgICBvdXRlciBsb29wCiAgICAgIHZlcnRleCA1IDUgMAogICAgICB2ZXJ0ZXggMCA1IDUKICAgICAgdmVydGV4IDUgNSA1CiAgICBlbmRsb29wCiAgZW5kZmFjZXQKICBmYWNldCBub3JtYWwgMCAxIDAKICAgIG91dGVyIGxvb3AKICAgICAgdmVydGV4IDAgNSA1CiAgICAgIHZlcnRleCA1IDUgMAogICAgICB2ZXJ0ZXggMCA1IDAKICAgIGVuZGxvb3AKICBlbmRmYWNldAogIGZhY2V0IG5vcm1hbCAtMSAwIDAKICAgIG91dGVyIGxvb3AKICAgICAgdmVydGV4IDAgMCAwCiAgICAgIHZlcnRleCAwIDUgNQogICAgICB2ZXJ0ZXggMCA1IDAKICAgIGVuZGxvb3AKICBlbmRmYWNldAogIGZhY2V0IG5vcm1hbCAtMSAtMCAwCiAgICBvdXRlciBsb29wCiAgICAgIHZlcnRleCAwIDUgNQogICAgICB2ZXJ0ZXggMCAwIDAKICAgICAgdmVydGV4IDAgMCA1CiAgICBlbmRsb29wCiAgZW5kZmFjZXQKZW5kc29saWQgT3BlblNDQURfTW9kZWwK';
+
+    loader.load(cube_uri, function ( geometry ) {
+
+        const mesh = new THREE.Mesh( geometry, material );
+
+        mesh.position.set( 0, - 0.37, - 0.6 );
+        mesh.rotation.set( - Math.PI / 2, 0, 0 );
+        mesh.scale.set( 0.2, 0.2, 0.2 );
+
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        scene.add( mesh );
+
+    } );
+
+    /*
+    loader.load( './models/stl/binary/pr2_head_tilt.stl', function ( geometry ) {
+
+        const mesh = new THREE.Mesh( geometry, material );
+
+        mesh.position.set( 0.136, - 0.37, - 0.6 );
+        mesh.rotation.set( - Math.PI / 2, 0.3, 0 );
+        mesh.scale.set( 2, 2, 2 );
+
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        scene.add( mesh );
+
+    } );
+
+    // Colored binary STL
+    loader.load( './models/stl/binary/colored.stl', function ( geometry ) {
+
+        let meshMaterial = material;
+
+        if ( geometry.hasColors ) {
+
+            meshMaterial = new THREE.MeshPhongMaterial( { opacity: geometry.alpha, vertexColors: true } );
+
+        }
+
+        const mesh = new THREE.Mesh( geometry, meshMaterial );
+
+        mesh.position.set( 0.5, 0.2, 0 );
+        mesh.rotation.set( - Math.PI / 2, Math.PI / 2, 0 );
+        mesh.scale.set( 0.3, 0.3, 0.3 );
+
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+
+        scene.add( mesh );
+
+    } );*/
+
+
+    // Lights
+
+    scene.add( new THREE.HemisphereLight( 0x443333, 0x111122 ) );
+
+    addShadowedLight( 1, 1, 1, 0xffffff, 1.35 );
+    addShadowedLight( 0.5, 1, - 1, 0xffaa00, 1 );
+    // renderer
+
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.outputEncoding = THREE.sRGBEncoding;
+
+    renderer.shadowMap.enabled = true;
+
+    container.appendChild( renderer.domElement );
+
+    //
+
+    window.addEventListener( 'resize', onWindowResize, false );
+
+}
+
+function addShadowedLight( x, y, z, color, intensity ) {
+
+    const directionalLight = new THREE.DirectionalLight( color, intensity );
+    directionalLight.position.set( x, y, z );
+    scene.add( directionalLight );
+
+    directionalLight.castShadow = true;
+
+    const d = 1;
+    directionalLight.shadow.camera.left = - d;
+    directionalLight.shadow.camera.right = d;
+    directionalLight.shadow.camera.top = d;
+    directionalLight.shadow.camera.bottom = - d;
+
+    directionalLight.shadow.camera.near = 1;
+    directionalLight.shadow.camera.far = 4;
+
+    directionalLight.shadow.bias = - 0.002;
+
+}
+
+function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize( window.innerWidth, window.innerHeight );
+
+}
+
+function animate() {
+
+    requestAnimationFrame( animate );
+
+    render();
+
+}
+
+function render() {
+
+    const timer = Date.now() * 0.0005;
+
+    camera.position.x = Math.cos( timer ) * 3;
+    camera.position.z = Math.sin( timer ) * 3;
+
+    camera.lookAt( cameraTarget );
+
+    renderer.render( scene, camera );
+
+}
+      
+      </script>
+</html>
