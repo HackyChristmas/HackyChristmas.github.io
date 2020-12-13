@@ -6,6 +6,6 @@ Ok, yesterday's thing was pretty boring because:
 
 Today I'll try and get you looking at some of your own models in your browser.
 
-Find a model that you've enjoyed working on this week (my favourite so far is the snowflake on [day 4](../Day04)) and export an STL file (like we did [yesterday](../Day12)).
+Find a model that you've enjoyed working on this week (my favourite so far is the snowflake on [day 4](../Day04)), scale it to (roughly) fit in a 5mm cube, translate it so it sits on the origin and export an STL file (like we did [yesterday](../Day12)).
 
-We're going to use that file with the webpage [here](viewer.html).
+You'll be able to upload that file and view it with this webpage [here](viewer.html).
