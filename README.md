@@ -12,3 +12,4 @@ An advent calendar for nerdy kids of all ages.
 10. [Day 10](Day10/README.md)
 11. [Day 11](Day11/README.md)
 12. [Day 12](Day12/README.md)
+13. [Day 13](Day13/README.md)
